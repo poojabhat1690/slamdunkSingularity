@@ -1,0 +1,33 @@
+#cutadapt in singularity
+
+BootStrap: debootstrap
+OSVersion: xenial
+MirrorURL: http://us.archive.ubuntu.com/ubuntu/
+
+%runscript
+    python3 slamdunk "$@"
+
+%post
+    apt-get -y install wget tar
+    apt-get -y install sudo
+
+    apt-get update
+    apt-get -y install python
+
+    apt-get -y install python-setuptools
+    easy_install pip
+    pip install --upgrade setuptools
+    pip install ez_setup
+    
+    mkdir -p /software
+        
+    pip install 'slamdunk'
+    
+    mkdir /groups
+    mkdir /clustertmp
+    mkdir /scratch
+    mkdir /scratch-ii2
+
+%test
+    
+
